@@ -1,0 +1,137 @@
+#include <iostream>
+
+int bankingSystem();
+int openAccount();
+void deposit();
+void withdraw();
+void showAccount();
+
+const int NAME_LEN = 20;
+
+int main() {
+	
+	while (5) {
+		int num = bankingSystem();
+
+		switch (num) {
+		case 1:
+			openAccount();
+			break;
+		case 2:
+			deposit();
+			break;
+		case 3:
+			withdraw();
+			break;
+		case 4:
+			showAccount();
+			break;
+		case 5:
+			return 0;
+			break;
+		default:
+			std::cout << "Illegal selection..\n";
+			break;
+		}
+	}
+}
+
+	typedef struct {
+		int accountNum;
+		int balance;
+		char name[NAME_LEN];
+	} Account;
+	Account accArr[100];
+	int accNum = 0;
+
+int bankingSystem() {
+	int num = 0;
+
+	std::cout << "-----Menu-----\n";
+	std::cout << "1. 계좌개설\n";
+	std::cout << "2. 입 금\n";
+	std::cout << "3. 출 금\n";
+	std::cout << "4. 계좌정보 전체 출력\n";
+	std::cout << "5. 프로그램 종료\n";
+	std::cout << "선택: ";
+	std::cin >> num;
+
+	return num;
+}
+
+int openAccount() {
+	int accountNum = 0;
+	char name[NAME_LEN];
+	int balance = 0;
+
+	std::cout << "[계좌개설]\n";
+	std::cout << "계좌: ";
+	std::cin >> accountNum;
+	std::cout << "이 름: ";
+	std::cin >> name;
+	std::cout << "잔 액: ";
+	std::cin >> balance;
+
+	accArr[accNum].accountNum = accountNum;
+	accArr[accNum].balance = balance;
+	strcpy_s(accArr[accNum].name, name);
+	accNum++;
+
+	std::cout << "계좌 개설됨\n";
+
+	return 0;
+}
+
+void deposit() {
+	int money;
+	int accountNum;
+	
+	std::cout << "[입   금]\n";
+	std::cout << "계좌ID: ";
+	std::cin >> accountNum;
+	std::cout << "입금 금액: ";
+	std::cin >> money;
+
+	for (int i = 0; i < accNum; i++) {
+		if (accArr[i].accountNum == accountNum) {
+			accArr[i].balance += money;
+			std::cout << "입금 완료\n";
+			return;
+		}
+	}
+	std::cout << "유효하지 않은 ID입니다.\n";
+}
+
+void withdraw() {
+	int money;
+	int accountNum;
+
+	std::cout << "[출   금]\n";
+	std::cout << "계좌ID: ";
+	std::cin >> accountNum;
+	std::cout << "출금액: ";
+	std::cin >> money;
+
+	for (int i = 0; i < accNum; i++) {
+		if (accArr[i].accountNum == accountNum) {
+			if (accArr[i].balance < money) {
+				std::cout << "잔액 부족\n";
+				return;
+			}
+			accArr[i].balance -= money;
+			std::cout << "출금 완료\n";
+			return;
+		}
+	}
+		std::cout << "유효하지 않은 ID입니다.\n";
+}
+
+void showAccount() {
+	std::cout << "[계좌정보 전체 출력]\n";
+
+	for (int i = 0; i < accNum; i++) {
+		std::cout << "계좌ID: " << accArr[i].accountNum << '\n';
+		std::cout << "이 름: " << accArr[i].name << '\n';
+		std::cout << "잔 액: " << accArr[i].balance << '\n';
+	}
+}

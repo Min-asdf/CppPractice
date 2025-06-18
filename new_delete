@@ -1,0 +1,22 @@
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+char* MakeStrAdr(int len);
+
+int main() {
+	char* str = MakeStrAdr(20);
+	strcpy_s(str, 20, "I am so happy");
+	cout << str << endl;
+	//free(str); -> C에서의 메모리 소멸
+	delete[]str;
+
+	return 0;
+}
+
+char* MakeStrAdr(int len) {
+	//char* str = (char*) malloc (sizeof(char) * len); -> C에서의 메모리 생성
+	char* str = new char[len];
+	return str;
+}

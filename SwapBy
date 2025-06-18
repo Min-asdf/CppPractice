@@ -1,0 +1,36 @@
+#include <iostream>
+
+void SwapByValue(int num1, int num2);
+void SwapByRef(int* ptr1, int* ptr2);
+
+int main() {
+	int num1 = 1;
+	int num2 = 2;
+
+	int* ptr1 = &num1;
+	int* ptr2 = &num2;
+
+	
+	std::cout << "num1: " << num1 << std::endl;
+	std::cout << "num2: " << num2 << std::endl;
+
+	SwapByValue(num1, num2);
+	std::cout << "SwapByValue: " << num1 << ", " << num2 << std::endl;
+
+	SwapByRef(ptr1, ptr2);
+	std::cout << "SwapByRef: " << *ptr1 << ", " << *ptr2 << std::endl;
+
+	return 0;
+}
+
+void SwapByValue(int num1, int num2) {
+	int temp = num1;
+	num1 = num2;
+	num2 = temp;
+}
+
+void SwapByRef(int* ptr1, int* ptr2) {
+	int temp = *ptr1;
+	*ptr1 = *ptr2;
+	*ptr2 = temp;
+}
